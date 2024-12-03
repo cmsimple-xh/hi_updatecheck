@@ -416,7 +416,11 @@ function hi_fsFileGetContents($url, $timeout = 30) {
         if ($result !== false) {
             $headers = curl_getinfo($ch);
         } else {
-            $curlerror = (curl_errno($ch) ?  curl_errno($ch) : '');
+            $curlerror = (curl_errno($ch)
+                            ?  curl_errno($ch)
+                                . ' - '
+                                . curl_strerror(curl_errno($ch))
+                            : '');
             throw new RuntimeException("cannot connect to $url , $curlerror");
         }
         curl_close($ch);
