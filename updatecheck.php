@@ -73,7 +73,7 @@ function hi_updateQuickInfo() {
     try {
         $localVersion = hi_versionInfo($_POST['versionstr']);
     } catch (RuntimeException $ex) {
-        $localVersion = null;
+        return;
     }
     if (count($localVersion) !== 7) {
         return;
@@ -83,7 +83,7 @@ function hi_updateQuickInfo() {
         $versionStr = hi_fsFileGetContents(trim($localVersion[6]), $timeout);
         $remoteVersion = hi_versionInfo($versionStr);
     } catch (RuntimeException $ex) {
-        $versionStr = $remoteVersion = null;
+        return;
     }
     if (count($remoteVersion) !== 7) {
         return;
